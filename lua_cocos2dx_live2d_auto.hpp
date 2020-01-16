@@ -12,47 +12,4 @@ extern "C" {
 
 int register_all_cocos2dx_live2d(lua_State* tolua_S);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif // __cocos2dx_live2d_h__
