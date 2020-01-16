@@ -220,6 +220,13 @@ void Live2DSprite::onEnter()
 {
     Node::onEnter();
     _model->Update();
+    scheduleUpdate();
+}
+
+void Live2DSprite::onExit()
+{
+    Node::onExit();
+    unscheduleUpdate();
 }
 
 void Live2DSprite::update(float delta)

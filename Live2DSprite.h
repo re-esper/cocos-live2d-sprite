@@ -28,6 +28,7 @@ protected:
     bool initWithFile(const std::string& modelFile);
 public:
     void onEnter() override;
+    void onExit() override;
     void update(float delta) override;
     void draw(Renderer* renderer, const Mat4& transform, uint32_t flags) override;
 
