@@ -1,4 +1,4 @@
-#include "scripting/lua-bindings/auto/lua_cocos2dx_live2d_auto.hpp"
+#include "lua_cocos2dx_live2d_auto.hpp"
 #include "Live2DSprite.h"
 #include "scripting/lua-bindings/manual/tolua_fix.h"
 #include "scripting/lua-bindings/manual/LuaBasicConversions.h"
@@ -2128,16 +2128,17 @@ int lua_register_cocos2dx_live2d_Live2DSprite(lua_State* tolua_S)
     g_typeCast["Live2DSprite"] = "Live2DSprite";
     return 1;
 }
-TOLUA_API int register_all_cocos2dx_live2d(lua_State* tolua_S)
+TOLUA_API int register_live2d_module(lua_State* tolua_S)
 {
-	tolua_open(tolua_S);
-	
-	tolua_module(tolua_S,"cc",0);
-	tolua_beginmodule(tolua_S,"cc");
-
-	lua_register_cocos2dx_live2d_Live2DSprite(tolua_S);
-
-	tolua_endmodule(tolua_S);
+    lua_getglobal(tolua_S, "_G");
+    if (lua_istable(tolua_S, -1)) {
+        tolua_open(tolua_S);
+        tolua_module(tolua_S, "cc", 0);
+        tolua_beginmodule(tolua_S, "cc");
+        lua_register_cocos2dx_live2d_Live2DSprite(tolua_S);
+        tolua_endmodule(tolua_S);
+    }
+    lua_pop(tolua_S, 1);
 	return 1;
 }
 

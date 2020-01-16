@@ -10,6 +10,6 @@ extern "C" {
 }
 #endif
 
-int register_all_cocos2dx_live2d(lua_State* tolua_S);
+int register_live2d_module(lua_State* tolua_S);
 
 #endif // __cocos2dx_live2d_h__
