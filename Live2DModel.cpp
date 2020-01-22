@@ -19,12 +19,18 @@
 
 //cocos2d
 #include "cocos2d.h"
-#include "audio/include/SimpleAudioEngine.h"
 #include "base/CCDirector.h"
 #include "renderer/CCTexture2D.h"
 #include "renderer/CCTextureCache.h"
 
+#if USE_AUDIO_ENGINE
+#include "audio/include/AudioEngine.h"
+using namespace cocos2d::experimental;
+#elif USE_SIMPLE_AUDIO_ENGINE
+#include "audio/include/SimpleAudioEngine.h"
 using namespace CocosDenshion;
+#endif
+
 using namespace std;
 using namespace Csm;
 using namespace Csm::Constant;
@@ -280,8 +286,11 @@ void Live2DModel::PreloadMotionGroup(const csmChar* group)
         if (strcmp(voice.GetRawString(), "") != 0) {
             csmString path = voice;
             path = _modelHomeDir + path;
-
+#if USE_AUDIO_ENGINE
+            AudioEngine::preload(path.GetRawString());
+#elif USE_SIMPLE_AUDIO_ENGINE
             SimpleAudioEngine::getInstance()->preloadEffect(path.GetRawString());
+#endif
         }
     }
 }
@@ -294,8 +303,11 @@ void Live2DModel::ReleaseMotionGroup(const csmChar* group) const
         if (strcmp(voice.GetRawString(), "") != 0) {
             csmString path = voice;
             path = _modelHomeDir + path;
-
+#if USE_AUDIO_ENGINE
+            AudioEngine::uncache(path.GetRawString());
+#elif USE_SIMPLE_AUDIO_ENGINE
             SimpleAudioEngine::getInstance()->unloadEffect(path.GetRawString());
+#endif
         }
     }
 }
@@ -451,7 +463,11 @@ CubismMotionQueueEntryHandle Live2DModel::StartMotion(const csmChar* group, csmI
     if (strcmp(voice.GetRawString(), "") != 0) {
         csmString path = voice;
         path = _modelHomeDir + path;
+#if USE_AUDIO_ENGINE
+        AudioEngine::play2d(path.GetRawString());
+#elif USE_SIMPLE_AUDIO_ENGINE
         SimpleAudioEngine::getInstance()->playEffect(path.GetRawString());
+#endif
     }
 
     CCLOG("[APP]start motion: [%s_%d]", group, no);
