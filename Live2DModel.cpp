@@ -73,6 +73,7 @@ Live2DModel::Live2DModel()
     : CubismUserModel()
     , _modelSetting(NULL)
     , _userTimeSeconds(0.0f)
+    , _isAutoPlayIdleMotions(true)
 {
     _idParamAngleX = CubismFramework::GetIdManager()->GetId(ParamAngleX);
     _idParamAngleY = CubismFramework::GetIdManager()->GetId(ParamAngleY);
@@ -80,6 +81,7 @@ Live2DModel::Live2DModel()
     _idParamBodyAngleX = CubismFramework::GetIdManager()->GetId(ParamBodyAngleX);
     _idParamEyeBallX = CubismFramework::GetIdManager()->GetId(ParamEyeBallX);
     _idParamEyeBallY = CubismFramework::GetIdManager()->GetId(ParamEyeBallY);
+    _lipSync = false; // lipSync default to false
 }
 
 Live2DModel::~Live2DModel()
@@ -352,11 +354,12 @@ void Live2DModel::Update()
 
     //-----------------------------------------------------------------
     _model->LoadParameters(); // 前回セーブされた状態をロード
-    if (_motionManager->IsFinished()) {
+    if (!_motionManager->IsFinished()) {
+        motionUpdated = _motionManager->UpdateMotion(_model, deltaTimeSeconds); // モーションを更新
+    }
+    else if (_isAutoPlayIdleMotions) {
         // モーションの再生がない場合、待機モーションの中からランダムで再生する
         StartRandomMotion(MotionGroupIdle, PriorityIdle);
-    } else {
-        motionUpdated = _motionManager->UpdateMotion(_model, deltaTimeSeconds); // モーションを更新
     }
     _model->SaveParameters(); // 状態を保存
     //-----------------------------------------------------------------

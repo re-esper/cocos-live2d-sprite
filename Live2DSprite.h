@@ -18,7 +18,6 @@ public:
 private:
     static bool _initialized;
     static EventListenerCustom* _recreatedEventlistener;
-
 private:
     Live2DSprite();
 public:
@@ -170,6 +169,9 @@ public:
     }
     void setLipSyncValue(float value = -1) {
         _model->setLipSyncValue(value);
+    }
+    void setIsAutoIdle(bool autoIdle = true) {
+        _model->setIsAutoIdle(autoIdle);
     }
 protected:
 	void onDrawModel(const Mat4& transform, uint32_t flags);

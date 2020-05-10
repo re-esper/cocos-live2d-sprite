@@ -189,8 +189,12 @@ public:
             _lastLipSyncValue = value;
         }
     }
+    void setIsAutoIdle(bool autoIdle = true) {
+        _isAutoPlayIdleMotions = autoIdle;
+    }
 private:
     std::vector<cocos2d::Texture2D*> _modelTextures;
+    bool _isAutoPlayIdleMotions;
 };
 
 
