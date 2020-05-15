@@ -60,7 +60,7 @@ bool Live2DSprite::initialize()
 #ifdef CSM_TARGET_ANDROID_ES2
     char* exts = (char*)glGetString(GL_EXTENSIONS);
     if (strstr(exts, "GL_NV_shader_framebuffer_fetch ")) {
-        Rendering::CubismRenderer_OpenGLES2::SetExtShaderMode(true, true);
+        Csm::Rendering::CubismRenderer_OpenGLES2::SetExtShaderMode(true, true);
     }
 #endif
     _recreatedEventlistener = EventListenerCustom::create(EVENT_RENDERER_RECREATED, [](EventCustom*) {
