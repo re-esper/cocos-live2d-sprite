@@ -31,11 +31,11 @@ public:
     void update(float delta) override;
     void draw(Renderer* renderer, const Mat4& transform, uint32_t flags) override;
 
-    virtual const Vec2& getAnchorPoint() const;
-    virtual void setAnchorPoint(const Vec2& point);
-    virtual Rect getBoundingBox() const;
-    virtual void setOpacity(GLubyte opacity);
-    virtual void setColor(const Color3B& color);
+    virtual const Vec2& getAnchorPoint() const override;
+    virtual void setAnchorPoint(const Vec2& point) override;
+    virtual Rect getBoundingBox() const override;
+    virtual void setOpacity(GLubyte opacity) override;
+    virtual void setColor(const Color3B& color) override;
 public:
     bool startMotion(const char* group, int32_t no, int32_t priority) {
         return _model->StartMotion(group, no, priority) != Csm::InvalidMotionQueueEntryHandleValue;
